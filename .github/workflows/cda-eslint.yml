@@ -10,6 +10,11 @@ jobs:
   eslint:                                 # Job name
     runs-on: ubuntu-latest                # Run the job on the latest Ubuntu GitHub runner
 
+    permissions:    
+      actions: read
+      contents: read
+      security-events: write   # 🔑 REQUIRED for uploading SARIF to Security tab
+
     steps:
 
       # === Step 1: Checkout the repository ===
