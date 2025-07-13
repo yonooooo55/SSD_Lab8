@@ -1,0 +1,44 @@
+# ================= METADATA =================
+
+name: "CodeQL Analysis Lab"                # Name of the GitHub Actions workflow file
+on: [push, pull_request]                   # Trigger workflow on push and pull request events
+
+
+# ================= MAIN JOB =================
+
+jobs:
+
+  # ANALYZE
+  analyze:
+    name: Analyze Code with CodeQL         # Job name as shown in the GitHub Actions UI
+    runs-on: ubuntu-latest                 # Use the latest Ubuntu runner (Linux environment)
+
+    # === Permissions required for uploading SARIF scan results ===
+    permissions:
+      security-events: write               # ✅ Needed to upload results to "Code scanning alerts"
+      actions: read                        # GitHub Actions usage access
+      contents: read                       # Read access to repo contents
+
+    # === Strategy block for future multi-language support ===
+    strategy:
+      fail-fast: false                     # Don't stop all jobs if one fails
+      matrix:
+        language: [ 'javascript' ]         # Language to scan (currently JavaScript only)
+
+    steps:
+
+      # === Step 1: Clone the repository into the runner ===
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # === Step 2: Initialize the CodeQL engine for JavaScript ===
+      - name: Initialize CodeQL
+        uses: github/codeql-action/init@v3
+        with:
+          languages: ${{ matrix.language }}    # Pick language(s) from the matrix (javascript)
+
+      # === Step 3: Run the CodeQL analysis and upload the SARIF report ===
+      - name: Perform CodeQL Analysis
+        uses: github/codeql-action/analyze@v3
+        with:
+          category: "/language:${{ matrix.language }}"   # Categorize results by language
