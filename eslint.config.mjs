@@ -1,31 +1,45 @@
-// ===  IMPORTS ===
+// === IMPORTS ===
 import js from "@eslint/js";
 import pluginSecurity from "eslint-plugin-security";
+import pluginSecurityNode from "eslint-plugin-security-node";
+import pluginNoUnsanitized from "eslint-plugin-no-unsanitized";
 
-
-
+// === CONFIG EXPORT ===
 export default [
 
-  // From @eslint/js Recommended Rules
+  // Base ESLint recommended rules
   js.configs.recommended,
+
   {
+    // Apply to all JS files
+    files: ["**/*.js"],
 
-    // Files to apply these rules to
-    files: ["**/*.js"],                // Apply to all JavaScript files
-
-    // Plugins to use
+    // Enable ESLint security plugins
     plugins: {
-      security: pluginSecurity,       // Include the security plugin
+      security: pluginSecurity,
+      "security-node": pluginSecurityNode,
+      "no-unsanitized": pluginNoUnsanitized
     },
-    
-    // Rules to enforce for plugin security
+
+    // Rules to enforce
     rules: {
-      "security/detect-eval-with-expression": "error",      // Example 1: Using eval (Security risk)
-      "security/detect-new-buffer": "error",                // Example 2: Using Buffer without 'new' (deprecated/insecure)
-      "no-unused-vars": "warn",                             // Example 3: Declaring variables but not using them
-      "no-var": "error",                                   // Example 4: Using var instead of let
-      "quotes": ["error", "single"],                       // Example 5: Double quotes instead of single (style rule, optional)
-      "no-console": "off"                                  // Allow console.log for testing purposes
+      // Plugin: eslint-plugin-security
+      "security/detect-eval-with-expression": "error",
+      "security/detect-new-buffer": "error",
+
+      // Plugin: eslint-plugin-security-node
+      "security-node/detect-disable-must-revalidate": "warn",
+      "security-node/detect-crlf": "warn",
+
+      // Plugin: eslint-plugin-no-unsanitized
+      "no-unsanitized/method": "error",
+      "no-unsanitized/property": "error",
+
+      // Core ESLint rules
+      "no-unused-vars": "warn",
+      "no-var": "error",
+      "quotes": ["error", "single"],
+      "no-console": "off"
     }
   }
 ];

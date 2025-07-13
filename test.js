@@ -1,41 +1,47 @@
-// Example 1: Using eval (Security risk)
-const expression = '2 + 2';
-eval(`console.log(${expression})`); // ❌ Should be flagged by eslint-plugin-security
+const expression1 = '2 + 2';
+eval(`console.log(${expression1})`);
 
-// Example 2: Using Buffer without 'new' (deprecated/insecure)
-const userInput = 'hello';
-const buf = Buffer(userInput); // ❌ Insecure usage of Buffer
+const userInput1 = "hello";
+const buf1 = Buffer(userInput1);
 
-// Example 3: Declaring variables but not using them
-let unusedVar = 5; // ❌ ESLint will flag unused variables
+let unusedVar = 5;
+var oldStyle = "not recommended";
 
-// Example 4: Using var instead of let/const
-let oldStyle = 'not recommended'; // ❌ ESLint (default rules) discourages var
+const message = "This uses double quotes";
 
-// Example 5: Double quotes instead of single (style rule, optional)
-const message = 'This uses double quotes'; // ❌ Might be flagged depending on rules
+const expr = '1 + 1';
+eval(`console.log(${expr})`);
 
-console.log('Test complete');
+const buf2 = Buffer('bad');
+
+const header = "Set-Cookie: test\r\nAnother-Header: injected";
+
+const domInput = '<img src=x onerror=alert(1)>';
+document.body.innerHTML = domInput;
+
+console.log("Test complete");
 
 
+// // TEMPLATE
+// const expression1 = '2 + 2';
+// eval(`console.log(${expression1})`);
 
+// const userInput1 = "hello";
+// const buf1 = Buffer(userInput1);
 
-// TEMPLATE SO CAN REPLACE WHEN FIX
-// // Example 1: Using eval (Security risk)
-// const expression = '2 + 2';
-// eval(`console.log(${expression})`); // ❌ Should be flagged by eslint-plugin-security
+// let unusedVar = 5;
+// var oldStyle = "not recommended";
 
-// // Example 2: Using Buffer without 'new' (deprecated/insecure)
-// const userInput = "hello";
-// const buf = Buffer(userInput); // ❌ Insecure usage of Buffer
+// const message = "This uses double quotes";
 
-// // Example 3: Declaring variables but not using them
-// let unusedVar = 5; // ❌ ESLint will flag unused variables
+// const expr = '1 + 1';
+// eval(`console.log(${expr})`);
 
-// // Example 4: Using var instead of let/const
-// var oldStyle = "not recommended"; // ❌ ESLint (default rules) discourages var
+// const buf2 = Buffer('bad');
 
-// // Example 5: Double quotes instead of single (style rule, optional)
-// const message = "This uses double quotes"; // ❌ Might be flagged depending on rules
+// const header = "Set-Cookie: test\r\nAnother-Header: injected";
+
+// const domInput = '<img src=x onerror=alert(1)>';
+// document.body.innerHTML = domInput;
 
 // console.log("Test complete");
