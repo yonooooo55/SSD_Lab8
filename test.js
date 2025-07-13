@@ -21,6 +21,13 @@ document.body.innerHTML = domInput;
 
 console.log("Test complete");
 
+// === CodeQL Test Case: JavaScript Injection ===
+
+const userInput = "2 + 2";           // Simulating external user input
+const result = eval(userInput);      // ❌ Dangerous: Code injection vulnerability
+console.log(result);
+
+
 
 // // TEMPLATE
 // const expression1 = '2 + 2';
